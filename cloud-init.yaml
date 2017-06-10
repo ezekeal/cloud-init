@@ -1,4 +1,5 @@
 #cloud-config
+# to be followed by: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
 users:
   - name: zach
     groups: sudo
@@ -6,6 +7,8 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDExQjRlrCTkG5iPVtLhw8BKA1Xa81LVbVTpxQCtNLShfGV4c2O0BzreN1g4aIl2d38II+s3K8UXwFodu0MoB7Hzq4rgK4PSdJrxterPt+wlZTvgbLMkFCseRQlQ2qK/IoJe31+31vlW7+M0CwYMrO/kroSeFK7O/FRYIXkZZTv85gcxrCq5olwqSFsfSWwzMTAlLBCjtQ3z/2IQ5pj7IBIcZbtGO5gZbt5JWcmcp/EjaTliG2hUUp4cG1nPcA8M7t7F9f5dsP9ZWlJjCu3mbVtewzZG06G54bPN/POpG/SdR/sNC9QMCfvdwix+bzQM6QqfvQlaKAyLoHYp6Niuc6MQWFaFopslNnX3X011n1njPW0Qv62NunfOTm15Go+6Kp7VrNBIBWMUoSx+dvgwEQzGXgJhmFkPKOnMJ4ewIeUqiL4+0C5jRn/syEUZBVKYB46yl4keD0R2XzWmAzt82bYl7ScBgdemD6CP9Vw1dIeFq5dDgkZpFylvcuQ3djQFGxK2hK0hJBrjCGhawzwTZw4oJCZNRW2RFAKuKJYeTxjJ7nG6m1zlAt9ZC+9Z4pcRp/fp14bPDdLtc1jlCw9jhmkz9t1V7PDOHrh0Sb8IzIsHNyX9DzPLYkIKnzma25Ms0kSzNm9HXupkiippHxnKxQRhWZqdDEpOsQnrervpzBOtQ== ezekeal@gmail.com
+apt_sources:
+  - source: "ppa:certbot/certbot"
 package_update: true
 package_upgrade: true
 packages:
@@ -13,6 +16,8 @@ packages:
   - ca-certificates
   - curl
   - software-properties-common
+  - nginx
+  - certbot
 runcmd:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
